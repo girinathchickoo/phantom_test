@@ -1,1 +1,21 @@
-    
+name: Vercel Beta Deployment
+env:
+  VERCEL_ORG_ID: team_jo1pGqZoUclHIJF9VHuPlE9j
+  VERCEL_PROJECT_ID: prj_iGBhS6HOe6zAskLi4PNfz4G93jFr
+on:
+  push:
+    branches:
+      - master
+jobs:
+  Deploy-Production:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=OOpYNkoAzXf3TM3NnwJoWizL
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=OOpYNkoAzXf3TM3NnwJoWizL
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=OOpYNkoAzXf3TM3NnwJoWizL
